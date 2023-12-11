@@ -35,6 +35,11 @@ const knex = require("knex")({
     }
 });  
 
+// Handle requests to the '/' path
+app.get('/', (req, res) => {
+    res.render('landingpage.ejs');
+});
+
 // Handle requests to the '/login' path
 app.get('/login', (req, res) => {
     res.render('login');
@@ -86,3 +91,6 @@ app.post('/login', (req, res) => {
             res.status(500).json({ err });
         });
 });
+
+// Start the Express app and listen on the specified port
+app.listen(port, () => console.log("Express App has started and server is listening!"));
