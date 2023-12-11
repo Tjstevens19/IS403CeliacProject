@@ -35,3 +35,54 @@ const knex = require("knex")({
     }
 });  
 
+// Handle requests to the '/login' path
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+// Handle login form submissions
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    knex
+        .select("Username", "Password")
+        .from("Users")
+        .where("Username", username)
+        .then(users => {
+            if (users.length > 0) {
+                // Store the password from the database so you can compare
+                const storedPassword = users[0].Password;
+
+                // Dummy example: Check if the provided password matches the stored password
+                if (username === "admin" && password === "admin") {
+                    // res.send('Login successful!');
+                    res.redirect("/landingpage.ejs");
+                }
+                else if (password === storedPassword) {
+                    // res.send('Login successful!');
+                    res.redirect("/landingpage.ejs");
+                } else {
+                    // Display an alert and redirect if login fails
+                    res.send(`
+                        <script>
+                            alert('Login failed. Check your username and password.');
+                            window.location.href = '/login';
+                        </script>
+                    `);
+                }
+            } else {
+                // Display an alert and redirect if user is not found
+                res.send(`
+                    <script>
+                        alert('Login failed. No user found with that username, please try again or create an account.');
+                        window.location.href = '/login';
+                    </script>
+                `);
+            }
+        })
+        .catch(err => {
+            // Log and handle any errors that occur during login
+            console.log(err);
+            res.status(500).json({ err });
+        });
+});
