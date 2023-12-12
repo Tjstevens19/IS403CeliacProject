@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Form</title>
+  <title>Create User</title>
   <style>
      body {
         font-family: 'Arial', sans-serif;
@@ -71,17 +71,17 @@
   </style>
 </head>
 <body>
-  <form action="/login" method="post">
+  <form action="/create-user" method="post">
      <fieldset>
-        <legend>Login</legend>
+        <legend>Create User</legend>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-        <button type="submit">Login</button>
+        <button type="submit">Create User</button>
         
-        <!-- Create User Link inside the fieldset -->
-        <p class="create-user-link">Don't have an account? <a href="/createuser">Create User</a></p>
+        <!-- Login Link inside the fieldset -->
+        <p class="create-user-link">Already have an account? <a href="/login">Login</a></p>
      </fieldset>
   </form>
 </body>

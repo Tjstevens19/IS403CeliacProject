@@ -40,6 +40,11 @@ app.get('/', (req, res) => {
     res.render('landingpage'); 
 });
 
+//route to createuser
+app.get('/createuser', (req, res) => {
+    res.render('createuser'); 
+});
+
 // Handle requests to the '/login' path
 app.get('/login', (req, res) => {
     res.render('login');
