@@ -37,7 +37,7 @@ const knex = require("knex")({
 
 // Handle requests to the '/' path
 app.get('/', (req, res) => {
-    res.render('landingpage.ejs'); 
+    res.render('landingpage'); 
 });
 
 // Handle requests to the '/login' path
