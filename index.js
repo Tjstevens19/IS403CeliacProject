@@ -45,6 +45,61 @@ app.get('/createuser', (req, res) => {
     res.render('createuser'); 
 });
 
+//post create new user
+app.post('/createuser', (req, res) => {
+    const { newUsername, newPassword } = req.body;
+
+    // Check if the username already exists
+    knex
+        .select("Username")
+        .from("Users")
+        .where("Username", newUsername)
+        .then(users => {
+            if (users.length > 0) {
+                // An account already exists with that username
+                res.send(`
+                    <script>
+                        alert('An account already exists with that Username');
+                        window.location.href = '/createAccount';
+                    </script>
+                `);
+            } else {
+                // Insert the new user into the database
+                knex("Users")
+                    .insert({ Username: newUsername, Password: newPassword })
+                    .returning("*")  // This line returns the inserted user data
+                    .then(insertedUsers => {
+                        // Check if the insertion was successful
+                        if (insertedUsers.length > 0) {
+                            res.send(`
+                                <script>
+                                    alert('Account created successfully!');
+                                    window.location.href = '/displayData';
+                                </script>
+                            `);
+                        } else {
+                            // Handle the case where insertion failed
+                            res.send(`
+                                <script>
+                                    alert('Account creation failed. Please try again.');
+                                    window.location.href = '/createAccount';
+                                </script>
+                            `);
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).json({ err });
+                    });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ err });
+        });
+});
+
+
 // Handle requests to the '/login' path
 app.get('/login', (req, res) => {
     res.render('login');
