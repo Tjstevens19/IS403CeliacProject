@@ -1,14 +1,26 @@
 {
-  "name": "is403celiacproject",
+  "name": "celiacwebsite",
   "version": "1.0.0",
-  "description": "",
+  "description": "IS403 Project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tjstevens19/IS403CeliacProject.git"
+  },
+  "author": "Magda Imerlishvili, Ethan Nance, Taylor Stevens, Nicholas Thomas",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tjstevens19/IS403CeliacProject/issues"
+  },
+  "homepage": "https://github.com/Tjstevens19/IS403CeliacProject#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "knex": "^3.0.1",
+    "pg": "^8.11.3"
   }
 }
