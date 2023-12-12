@@ -4,17 +4,16 @@
 <html>
 <head>
     <title>Restaurant Display</title>
-    <link rel="stylesheet" type="text/css" href="/path/to/your/css/file.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/path/to/your/css/file.css"> -->
 </head>
 <body>
     <h1>Restaurant Display</h1>
     <ul>
-        <% restaurants.forEach(function(restaurant) { %>
+        <% Restaurants.forEach(function(Restaurants) { %>
             <li>
-                <h2><%= restaurant.name %></h2>
-                <p><%= restaurant.description %></p>
-                <p>Address: <%= restaurant.address %></p>
-                <p>Phone: <%= restaurant.phone %></p>
+                <h2><%= Restaurants.Restaurant_Name %></h2>
+                <p>Address: <%= Restaurants.Address %></p>
+                <p>Photo: <%= Restaurants.Photo %></p>
             </li>
         <% }); %>
     </ul>

@@ -28,7 +28,7 @@ const knex = require("knex")({
     connection: {
         host : process.env.RDS_HOSTNAME || "localhost",
         user : process.env.RDS_USERNAME || "postgres",
-        password : process.env.RDS_PASSWORD || "newethanlego55555" || "admin" || "ethan" || "chickenugget410" || "chichennugget410",
+        password : process.env.RDS_PASSWORD || "S0cc3rr0cks" || "admin" || "ethan" || "chickenugget410" || "chichennugget410",
         database : process.env.RDS_DB_NAME || "celiac",
         port : process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
@@ -151,6 +151,25 @@ app.post('/login', (req, res) => {
             res.status(500).json({ err });
         });
 });
+
+app.get('/displayData', (req, res) => {
+
+        knex
+            .select("Restaurant_Id", 
+                "Restaurant_Name", 
+                "Address",
+                "Photo",)
+                 .from("Restaurant")
+                 .then(restaurants => {
+                                    // Render the 'restaurantDisplay' view with the retrieved survey responses
+                                    res.render("restaurantDisplay", { Restaurants: restaurants });
+                                })
+                                .catch(err => {
+                                    // Log and handle any errors that occur during data retrieval
+                                    console.log(err);
+                                    res.status(500).json({ err });
+                                });
+                        });
 
 // app.get('/displayData', (req, res) => {
 
