@@ -1,0 +1,22 @@
+<!-- FILEPATH: /C:/Users/tdogs/OneDrive/Documents/GitHub/IS403CeliacProject/CeliacWebsite/views/restaurantDisplay.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Display</title>
+    <link rel="stylesheet" type="text/css" href="/path/to/your/css/file.css">
+</head>
+<body>
+    <h1>Restaurant Display</h1>
+    <ul>
+        <% restaurants.forEach(function(restaurant) { %>
+            <li>
+                <h2><%= restaurant.name %></h2>
+                <p><%= restaurant.description %></p>
+                <p>Address: <%= restaurant.address %></p>
+                <p>Phone: <%= restaurant.phone %></p>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
