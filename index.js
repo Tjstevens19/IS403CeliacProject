@@ -28,7 +28,7 @@ const knex = require("knex")({
     connection: {
         host : process.env.RDS_HOSTNAME || "localhost",
         user : process.env.RDS_USERNAME || "postgres",
-        password : process.env.RDS_PASSWORD || "S0cc3rr0cks" || "admin" || "newethanlego55555" || "chickenugget410" || "chichennugget410",
+        password : process.env.RDS_PASSWORD || "newethanlego55555" || "admin" || "ethan" || "chickenugget410" || "chichennugget410",
         database : process.env.RDS_DB_NAME || "celiac",
         port : process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
@@ -37,8 +37,68 @@ const knex = require("knex")({
 
 // Handle requests to the '/' path
 app.get('/', (req, res) => {
-    res.render('landingpage'); 
+    res.render('landingpage2'); 
 });
+
+//route to createuser
+app.get('/createuser', (req, res) => {
+    res.render('createuser'); 
+});
+
+//post create new user
+app.post('/createuser', (req, res) => {
+    const { username, password } = req.body;
+
+    // Check if the username already exists
+    knex
+        .select("Username")
+        .from("Users")
+        .where("Username", username)
+        .then(Users => {
+            if (Users.length > 0) {
+                // An account already exists with that username
+                res.send(`
+                    <script>
+                        alert('An account already exists with that Username');
+                        window.location.href = '/createuser';
+                    </script>
+                `);
+            } else {
+                // Insert the new user into the database
+                knex("Users")
+                    .insert({ Username: username, Password: password })
+                    .returning("*")  // This line returns the inserted user data
+                    .then(insertedUsers => {
+                        // Check if the insertion was successful
+                        if (insertedUsers.length > 0) {
+                            res.send(`
+                                <script>
+                                    alert('Account created successfully!');
+                                    window.location.href = '/';
+                                </script>
+                            `);
+                        } else {
+                            // Handle the case where insertion failed
+                            res.send(`
+                                <script>
+                                    alert('Account creation failed. Please try again.');
+                                    window.location.href = '/createuser';
+                                </script>
+                            `);
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).json({ err });
+                    });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ err });
+        });
+});
+
 
 // Handle requests to the '/login' path
 app.get('/login', (req, res) => {
@@ -61,11 +121,11 @@ app.post('/login', (req, res) => {
                 // Dummy example: Check if the provided password matches the stored password
                 if (username === "admin" && password === "admin") {
                     // res.send('Login successful!');
-                    res.redirect("/landingpage.ejs");
+                    res.redirect("/");
                 }
                 else if (password === storedPassword) {
                     // res.send('Login successful!');
-                    res.redirect("/landingpage.ejs");
+                    res.redirect("/");
                 } else {
                     // Display an alert and redirect if login fails
                     res.send(`
