@@ -3,7 +3,6 @@
 
 // Import required modules
 const express = require("express");
-const express = require("express");
 const multer = require("multer");
 
 // Initialize Express app
