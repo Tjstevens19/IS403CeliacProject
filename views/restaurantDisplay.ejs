@@ -9,14 +9,18 @@
 <body>
     <h1>Restaurant Display</h1>
     <ul>
-        <% Restaurants.forEach(function(Restaurants) { %>
+        <% Restaurants.forEach(function(Restaurant) { %>
             <li>
-                <h2><%= Restaurants.name %></h2>
-                <p><%= Restaurants.description %></p>
-                <p>Address: <%= Restaurants.address %></p>
-                <img src="data:image/jpeg;base64,${Buffer.from(Restaurants.Photo).toString('base64')}" alt="Restaurant Photo">
+                <h2><%= Restaurant.Restaurant_Name %></h2>
+                <p>Address: <%= Restaurant.Address %></p>
+                <% if (Restaurant.Photo) { %>
+                    <img src="data:image/jpeg;base64,<%= Buffer.from(Restaurant.Photo).toString('base64') %>" alt="Restaurant Photo">
+                <% } else { %>
+                    <p>No photo available</p>
+                <% } %>
             </li>
         <% }); %>
+        
     </ul>
 </body>
 </html>
