@@ -146,7 +146,8 @@ app.get('/displayRestaurants', (req, res) => {
         .select("Restaurant_Id",
             "Restaurant_Name",
             "Address",
-            "Photo",)
+            "Photo",
+            "Item_Name")
              .from("Restaurant")
              .then(restaurants => {
                                 // Render the 'restaurantDisplay' view with the retrieved survey responses
@@ -159,13 +160,13 @@ app.get('/displayRestaurants', (req, res) => {
                             });
                     });
 app.post('/addRestaurant', upload.single('restaurantPhoto'), (req, res) => {
-    const { restaurantName, restaurantAddress } = req.body;
+    const { restaurantName, restaurantAddress, restaurantGluten } = req.body;
     console.log('req.file:', req.file); // Log the contents of req.file
     // Check if req.file is defined before accessing its properties
     if (req.file && req.file.buffer) {
         const restaurantPhoto = req.file.buffer;
         knex("Restaurant")
-            .insert({ Restaurant_Name: restaurantName, Address: restaurantAddress, Photo: restaurantPhoto })
+            .insert({ Restaurant_Name: restaurantName, Address: restaurantAddress, Photo: restaurantPhoto, Item_Name: restaurantGluten })
             .returning("*")
             .then(insertedRestaurant => {
                 res.send(`
