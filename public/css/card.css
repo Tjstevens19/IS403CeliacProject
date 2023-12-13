@@ -18,6 +18,9 @@ img {
 	max-width: 100%;
 	display: block;
 }
+.small-text {
+    font-size: 12px; /* Adjust the font size to your preference */
+}
 
 .card-list {
     display: flex;
