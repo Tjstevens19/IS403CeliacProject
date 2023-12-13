@@ -131,3 +131,33 @@ img {
 		margin-right: .25em;
 	}
 }
+/* .carousel {
+    overflow: hidden;
+    position: relative;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+} */
+
+/* <div id="cardList" class="card-list custom-card"></div>
+                                <div id="cardList" class="card-list custom-card">
+                                  <article class="card">
+                                    <!-- Carousel container -->
+                                    <div class="carousel">
+                                      <div class="slides">
+                                         
+                                         <div class="slide">
+                                          <figure class="card-image">
+                                            <img src="<%= photoUrl %>" alt="Restaurant Image"/>
+                                          </figure>
+                                        </div>
+                                        <!-- Add more slides as needed -->
+                                      </div>
+                                    </div> */
