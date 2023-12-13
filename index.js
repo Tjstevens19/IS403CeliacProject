@@ -176,6 +176,7 @@ app.get('/displayData', (req, res) => {
 
 app.post('/addRestaurant', upload.single('restaurantPhoto'), (req, res) => {
     const { restaurantName, restaurantAddress } = req.body;
+    console.log('req.file:', req.file); // Log the contents of req.file
 
     // Check if req.file is defined before accessing its properties
     if (req.file && req.file.buffer) {
