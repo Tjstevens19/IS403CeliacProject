@@ -38,8 +38,17 @@
             <th style="text-align:left">Restaurant Name</th>
             <th style="text-align:left">Restaurant Address</th>
             <th style="text-align:left">Photo</th>
-            <th></th>
         </tr>
     </thead>
+    <tbody>
+        <% for (let iCount = 0; iCount < myRestaurant.length; iCount++){ %>
+            <tr class="active-row">
+                <td><%= myRestaurant[iCount].Restaurant_Name %></td>
+                <td><%= myRestaurant[iCount].Address %></td>
+                <td><%= myRestaurant[iCount].Photo ? '<img src="data:image/jpeg;base64,' + Buffer.from(myRestaurant.Photo).toString('base64') + '" alt="Restaurant Photo">' : '<p>No photo available</p>' %></td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
 </body>
 </html>

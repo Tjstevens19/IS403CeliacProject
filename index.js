@@ -21,7 +21,7 @@ const knex = require("knex")({
     connection: {
         host : process.env.RDS_HOSTNAME || "localhost",
         user : process.env.RDS_USERNAME || "postgres",
-        password : process.env.RDS_PASSWORD || "admin" || "admin" || "newethanlego55555" || "chickenugget410" || "chichennugget410",
+        password : process.env.RDS_PASSWORD || "S0cc3rr0cks" || "admin" || "newethanlego55555" || "chickenugget410" || "chichennugget410",
         database : process.env.RDS_DB_NAME || "celiac",
         port : process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
@@ -141,6 +141,21 @@ app.post('/login', (req, res) => {
             res.status(500).json({ err });
         });
 });
+
+app.get("/displayRestaurant", (req, res) => {
+    knex.select("Restaurant_Name", 
+                "Address", 
+                "Photo",
+                ).from("Restaurant")
+                .where("Restaurant_Name", req.query.searchRestaurantName)
+                .then(restaurant => {
+                    res.render("displayData", { myRestaurant: restaurant });
+                }).catch(err => {
+                    console.log(err);
+                    res.status(500).json({ err });
+                });
+            });
+
 app.get('/displayRestaurants', (req, res) => {
     knex
         .select("Restaurant_Id",
@@ -150,7 +165,7 @@ app.get('/displayRestaurants', (req, res) => {
              .from("Restaurant")
              .then(restaurants => {
                                 // Render the 'restaurantDisplay' view with the retrieved survey responses
-                                res.render("restaurantDisplay", { Restaurants: restaurants });
+                                res.render("restaurantDisplay", { myRestaurants: restaurants });
                             })
                             .catch(err => {
                                 // Log and handle any errors that occur during data retrieval
@@ -158,6 +173,7 @@ app.get('/displayRestaurants', (req, res) => {
                                 res.status(500).json({ err });
                             });
                     });
+
 app.post('/addRestaurant', upload.single('restaurantPhoto'), (req, res) => {
     const { restaurantName, restaurantAddress } = req.body;
     console.log('req.file:', req.file); // Log the contents of req.file
