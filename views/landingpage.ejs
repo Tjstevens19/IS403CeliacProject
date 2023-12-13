@@ -28,12 +28,23 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/displayData">Restaurants</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="#Rat">Add Restaurant</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="#Rate">Add Restaurant</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/login">Login</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <br>
+        <div class="container text-center">
+          <form class="d-flex justify-content-center">
+              <div class="input-group">
+                  <input id="restaurantName" class="form-control" type="search" placeholder="Search Celiac-Friendly Restaurants" aria-label="Search">
+                  <div id="results" class="dropdown-menu" aria-labelledby="restaurantName"></div>
+                  <button class="btn btn-primary" type="submit">Search</button>
+              </div>
+          </form>
+      </div>
+
         <div class="hover_bkgr_fricc">
             <span class="popupCloseButton" onclick="closePopup()">X</span>
             <div class="popup">
