@@ -11,9 +11,10 @@
     <ul>
         <% Restaurants.forEach(function(Restaurants) { %>
             <li>
-                <h2><%= Restaurants.Restaurant_Name %></h2>
-                <p>Address: <%= Restaurants.Address %></p>
-                <p>Photo: <%= Restaurants.Photo %></p>
+                <h2><%= Restaurants.name %></h2>
+                <p><%= Restaurants.description %></p>
+                <p>Address: <%= Restaurants.address %></p>
+                <img src="data:image/jpeg;base64,${Buffer.from(Restaurants.Photo).toString('base64')}" alt="Restaurant Photo">
             </li>
         <% }); %>
     </ul>
