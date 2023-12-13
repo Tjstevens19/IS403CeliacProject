@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudfare.com/ajax/libs/bulma/0.7.2/css/bulma.css" />    -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+        <link href="css/styles.css" rel="stylesheet">
+        <title>Restaurants</title>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+           <div class="container px-5">
+               <div class="collapse navbar-collapse" id="navbarResponsive">
+                   <ul class="navbar-nav ms-auto">
+                       <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                       <li class="nav-item"><a class="nav-link" href="/createUser">Create User</a></li>
+                   </ul>
+               </div>
+           </div>
+       </nav><br><br><br>
+       <div class="container text-center">
+        <form class="d-flex justify-content-center">
+            <div class="input-group">
+                <input id="restaurantName" class="form-control" type="search" placeholder="Search Celiac-Friendly Restaurants" aria-label="Search">
+                <div id="results" class="dropdown-menu" aria-labelledby="restaurantName"></div>
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+<table class="content-table">
+    <thead>
+        <tr>
+            <th style="text-align:left">Restaurant Name</th>
+            <th style="text-align:left">Restaurant Address</th>
+            <th style="text-align:left">Photo</th>
+            <th></th>
+        </tr>
+    </thead>
+</body>
+</html>

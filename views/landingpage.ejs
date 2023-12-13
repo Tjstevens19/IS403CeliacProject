@@ -27,13 +27,23 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/displayData">Restaurants</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="#Rat">Add Restaurant</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/displayRestaurants">Restaurants</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="#Rate">Add Restaurant</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/login">Login</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <br>
+        <div class="container text-center">
+          <form class="d-flex justify-content-center" action="/displayData" method="get">
+              <div class="input-group">
+                  <input id="restaurantName" class="form-control" type="search" placeholder="Search Celiac-Friendly Restaurants" aria-label="Search">
+                  <div id="results" class="dropdown-menu" aria-labelledby="restaurantName"></div>
+                    <button class="btn btn-primary" type="submit" onclick="">Search</button>
+              </div>
+          </form>
+      </div>
         <div class="hover_bkgr_fricc">
             <span class="popupCloseButton" onclick="closePopup()">X</span>
             <div class="popup">
@@ -98,8 +108,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-
-       
         <script>
             // Sample restaurant data , "Restaurant 2", "Restaurant 3", "Restaurant 4", "Restaurant 5"
             const restaurants = ["Restaurant 1"];
@@ -111,17 +119,14 @@
     const randomRestaurant = generateRandomRestaurant();
     displayPopup(randomRestaurant);
   });
-
   // Event listener for the "X" close button
   document.querySelector(".popupCloseButton").addEventListener("click", function () {
     closePopup();
   });
-
   // Function to close the popup
   document.querySelector(".hover_bkgr_fricc").addEventListener("click", function () {
     closePopup();
   });
-
   // Your existing functions
   function generateRandomRestaurant() {
   const randomIndex = Math.floor(Math.random() * restaurants.length);
@@ -131,26 +136,20 @@
   };
   return randomRestaurant;
 }
-
 function displayPopup(restaurant) {
   // Set the content of the popup
   document.getElementById("random-restaurant").textContent = restaurant.name;
   document.getElementById("random-restaurant-picture").src = restaurant.picture;
-
   // Show the popup by adding the "active" class
   document.querySelector('.hover_bkgr_fricc').style.display = 'block';
 }
-
   function closePopup() {
     // Hide the popup by removing the "active" class
     document.querySelector('.hover_bkgr_fricc').style.display = 'none';
   }
-
   // Initial call to generate a random restaurant on page load
   generateRandomRestaurant();
-});  
+});
   </script>
-    
-
     </body>
 </html>
