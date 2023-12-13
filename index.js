@@ -176,23 +176,30 @@ app.get('/displayData', (req, res) => {
 
 app.post('/addRestaurant', upload.single('restaurantPhoto'), (req, res) => {
     const { restaurantName, restaurantAddress } = req.body;
-    const restaurantPhoto = req.file.buffer;
 
-    knex("Restaurant")
-        .insert({ Restaurant_Name: restaurantName, Address: restaurantAddress, Photo: restaurantPhoto })
-        .returning("*")
-        .then(insertedRestaurant => {
-            res.send(`
-                <script>
-                    alert('Restaurant added successfully!');
-                    window.location.href = '/displayData';
-                </script>
-            `);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ err });
-        });
+    // Check if req.file is defined before accessing its properties
+    if (req.file && req.file.buffer) {
+        const restaurantPhoto = req.file.buffer;
+
+        knex("Restaurant")
+            .insert({ Restaurant_Name: restaurantName, Address: restaurantAddress, Photo: restaurantPhoto })
+            .returning("*")
+            .then(insertedRestaurant => {
+                res.send(`
+                    <script>
+                        alert('Restaurant added successfully!');
+                        window.location.href = '/displayData';
+                    </script>
+                `);
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ err });
+            });
+    } else {
+        // Handle the case where req.file or req.file.buffer is undefined
+        res.status(400).send('Bad Request: Missing or invalid file.');
+    }
 });
 
 
