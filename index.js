@@ -21,7 +21,7 @@ const knex = require("knex")({
     connection: {
         host : process.env.RDS_HOSTNAME || "localhost",
         user : process.env.RDS_USERNAME || "postgres",
-        password : process.env.RDS_PASSWORD || "admin" || "admin" || "newethanlego55555" || "chickenugget410" || "chichennugget410",
+        password : process.env.RDS_PASSWORD || "flexflex" || "admin" || "newethanlego55555" || "chickenugget410" || "chichennugget410",
         database : process.env.RDS_DB_NAME || "celiac",
         port : process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
@@ -111,11 +111,11 @@ app.post('/login', (req, res) => {
                 // Dummy example: Check if the provided password matches the stored password
                 if (username === "admin" && password === "admin") {
                     // res.send('Login successful!');
-                    res.redirect("/");
+                    res.redirect("/displayRestaurants");
                 }
                 else if (password === storedPassword) {
                     // res.send('Login successful!');
-                    res.redirect("/");
+                    res.redirect("/displayRestaurants");
                 } else {
                     // Display an alert and redirect if login fails
                     res.send(`
@@ -150,7 +150,7 @@ app.get('/displayRestaurants', (req, res) => {
              .from("Restaurant")
              .then(restaurants => {
                                 // Render the 'restaurantDisplay' view with the retrieved survey responses
-                                res.render("restaurantDisplay", { Restaurants: restaurants });
+                                res.render("displayRestaurants", { Restaurants: restaurants });
                             })
                             .catch(err => {
                                 // Log and handle any errors that occur during data retrieval
@@ -171,7 +171,7 @@ app.post('/addRestaurant', upload.single('restaurantPhoto'), (req, res) => {
                 res.send(`
                     <script>
                         alert('Restaurant added successfully!');
-                        window.location.href = '/displayData';
+                        window.location.href = '/displayRestaurants';
                     </script>
                 `);
             })
