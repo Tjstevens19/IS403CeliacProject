@@ -3,6 +3,8 @@
 
 // Import required modules
 const express = require("express");
+const express = require("express");
+const multer = require("multer");
 
 // Initialize Express app
 let app = express();
@@ -34,6 +36,9 @@ const knex = require("knex")({
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
     }
 });  
+
+const storage = multer.memoryStorage(); // Store the file in memory as a Buffer
+const upload = multer({ storage: storage });
 
 // Handle requests to the '/' path
 app.get('/', (req, res) => {
@@ -151,6 +156,48 @@ app.post('/login', (req, res) => {
             res.status(500).json({ err });
         });
 });
+
+app.get('/displayData', (req, res) => {
+
+    knex
+        .select("Restaurant_Id", 
+            "Restaurant_Name", 
+            "Address",
+            "Photo",)
+             .from("Restaurant")
+             .then(restaurants => {
+                                // Render the 'restaurantDisplay' view with the retrieved survey responses
+                                res.render("restaurantDisplay", { Restaurants: restaurants });
+                            })
+                            .catch(err => {
+                                // Log and handle any errors that occur during data retrieval
+                                console.log(err);
+                                res.status(500).json({ err });
+                            });
+                    });
+
+app.post('/addRestaurant', upload.single('restaurantPhoto'), (req, res) => {
+    const { restaurantName, restaurantAddress } = req.body;
+    const restaurantPhoto = req.file.buffer;
+
+    knex("Restaurant")
+        .insert({ Restaurant_Name: restaurantName, Address: restaurantAddress, Photo: restaurantPhoto })
+        .returning("*")
+        .then(insertedRestaurant => {
+            res.send(`
+                <script>
+                    alert('Restaurant added successfully!');
+                    window.location.href = '/displayData';
+                </script>
+            `);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ err });
+        });
+});
+
+
 
 // app.get('/displayData', (req, res) => {
 
