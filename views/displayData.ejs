@@ -85,6 +85,9 @@
             <th style="text-align:left">Restaurant Name</th>
             <th style="text-align:left">Restaurant Address</th>
             <th style="text-align:left">Item Name</th>
+            <th style="text-align:left">Edit</th>
+            <th style="text-align:left">Delete</th>
+
         </tr>
     </thead>
    <tbody>
@@ -94,6 +97,16 @@
                 <td><%= myRestaurant[iCount].Restaurant_Name %></td>
                 <td><%= myRestaurant[iCount].Address %></td>
                 <td><%= myRestaurant[iCount].Item_Name %></td>
+                <td>
+                    <form action="/editRestaurant/<%= myRestaurant[iCount].Restaurant_Id %>" method="GET">
+                        <input type="submit" name="Edit" value="Edit" />
+                    </form>
+                </td>
+                <td>
+                    <form action="/deleteRestaurant/<%= myRestaurant[iCount].Restaurant_Id %>" method="POST">
+                        <input type="submit" name="Delete" value="Delete" />
+                    </form>
+                </td>
             </tr>
         <% } %>
     <% } else { %>

@@ -21,7 +21,7 @@ const knex = require("knex")({
     connection: {
         host : process.env.RDS_HOSTNAME || "localhost",
         user : process.env.RDS_USERNAME || "postgres",
-        password : process.env.RDS_PASSWORD || "flexflex" || "admin" || "newethanlego55555" || "chickenugget410" || "chichennugget410",
+        password : process.env.RDS_PASSWORD || "S0cc3rr0cks" || "admin" || "newethanlego55555" || "chickenugget410" || "chichennugget410",
         database : process.env.RDS_DB_NAME || "celiac",
         port : process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
@@ -142,8 +142,10 @@ app.post('/login', (req, res) => {
         });
 });
 
+// Handle display restaurant
 app.get("/displayRestaurant", (req, res) => {
-    knex.select("Restaurant_Name", 
+    knex.select("Restaurant_Id",
+                "Restaurant_Name", 
                 "Address", 
                 "Photo",
                 "Item_Name")
@@ -158,7 +160,7 @@ app.get("/displayRestaurant", (req, res) => {
             });
 
     
-
+// Handle display restaurants
 app.get('/displayRestaurants', (req, res) => {
     knex
         .select("Restaurant_Id",
@@ -177,6 +179,73 @@ app.get('/displayRestaurants', (req, res) => {
                                 res.status(500).json({ err });
                             });
                     });
+
+// Handle update restaurant
+app.get("/editRestaurant/:id", (req, res) => {
+    const restaurantId = req.params.id;
+
+    knex.select("Restaurant_Id", "Restaurant_Name", "Address", "Photo", "Item_Name")
+        .from("Restaurant")
+        .where("Restaurant_Id", restaurantId)
+        .then(restaurant => {
+            res.render("editRestaurant", { myRestaurant: restaurant[0] }); // Pass the first element of the array
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ err });
+        });
+});
+
+
+
+
+
+
+// Handle update restaurant
+app.post('/updateRestaurant', upload.single('restaurantPhoto'), (req, res) => {
+    const { restaurantId, restaurantName, address, itemName } = req.body;
+    const restaurantPhoto = req.file ? req.file.buffer : undefined;
+    console.log('req.file:', req.file); // Log the contents of req.file
+    // Check if req.file is defined before accessing its properties
+    if (req.file && req.file.buffer) {
+        const restaurantPhoto = req.file.buffer;
+        knex("Restaurant")
+            .where({ Restaurant_Id: restaurantId })
+            .update({ Restaurant_Name: restaurantName, Address: address, Photo: restaurantPhoto, Item_Name: itemName })
+            .returning("*")
+            .then(updatedRestaurant => {
+                res.send(`
+                    <script>
+                        alert('Restaurant updated successfully!');
+                        window.location.href = '/displayRestaurants';
+                    </script>
+                `);
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ err });
+            });
+    } else {
+        // Handle the case where req.file or req.file.buffer is undefined
+        knex("Restaurant")
+            .where({ Restaurant_Id: restaurantId })
+            .update({ Restaurant_Name: restaurantName, Address: address, Item_Name: itemName })
+            .returning("*")
+            .then(updatedRestaurant => {
+                res.send(`
+                    <script>
+                        alert('Restaurant updated successfully!');
+                        window.location.href = '/displayRestaurants';
+                    </script>
+                `);
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ err });
+            });
+    }
+});
+
 
 app.post('/addRestaurant', upload.single('restaurantPhoto'), (req, res) => {
     const { restaurantName, restaurantAddress, restaurantGluten } = req.body;
@@ -203,6 +272,26 @@ app.post('/addRestaurant', upload.single('restaurantPhoto'), (req, res) => {
         // Handle the case where req.file or req.file.buffer is undefined
         res.status(400).send('Bad Request: Missing or invalid file.');
     }
+});
+
+// Handle delete restaurant
+app.post('/deleteRestaurant/:id', (req, res) => {
+    const restaurantId = req.params.id;
+    knex("Restaurant")
+        .where({ Restaurant_Id: restaurantId })
+        .del()
+        .then(() => {
+            res.send(`
+                <script>
+                    alert('Restaurant deleted successfully!');
+                    window.location.href = '/displayRestaurants';
+                </script>
+            `);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ err });
+        });
 });
 
 // Start the Express app and listen on the specified port
