@@ -156,6 +156,8 @@ app.get("/displayRestaurant", (req, res) => {
                 });
             });
 
+    
+
 app.get('/displayRestaurants', (req, res) => {
     knex
         .select("Restaurant_Id",

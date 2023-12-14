@@ -28,8 +28,8 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.html">Home</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">Login</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/">Home</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/login">Login</a></li>
                         <!-- <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html"></a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">Store</a></li> -->
                     </ul>
@@ -42,45 +42,52 @@
                     <div class="col-xl-9 mx-auto">
                         <div class="cta-inner bg-faded text-center rounded">
                             <h2 class="section-heading mb-5">
-                              <span class="section-heading-upper">Enjoy With</span>
-                              <span class="section-heading-lower">Our Selection</span>
-                              <!-- This is the place where restaurants will be displayed as cards -->
-                              <div id="cardList" class="card-list custom-card">
-                                  <% Restaurants.forEach(function(Restaurant) { %>
-                                      <article class="card">
-                                        <figure class="card-image">
-                                          <img src="data:image/jpeg;base64,<%= Buffer.from(Restaurant.Photo).toString('base64') %>" alt="Restaurant Photo" style="max-width: 400px; max-height: 400px;">
-                                        </figure>
-                                      
-                                          <div class="card-header">
-                                              <a href="#"><%= Restaurant.Restaurant_Name %></a>
-                                              <button class="icon-button">
-                                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block">
-                                                      <path d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z" />
-                                                  </svg>
-                                              </button>
-                                          </div>
-                                          <div class="card-footer">
-                                            <div class="card-meta card-meta--date">
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="MapMarker">
-                                                  <path d="M12 2C7.48 2 4 6.48 4 11s8 13 8 13 8-7.48 8-13-3.48-9-8-9zM12 15c-1.11 0-2-0.89-2-2s0.89-2 2-2 2 0.89 2 2-0.89 2-2 2z" />
-                                              </svg>
-                                              <span class="small-text"><%= Restaurant.Address %></span>
-                                          </div>
-                                              </div>
-                                              
-                                          </div>
-                                        </div>
-                                      </article>
-                                  <% }); %>
-                              </div>
-                             <!--Where it ends-->
-                             <div id="cardList" class="card-list custom-card"></div>
+                                <span class="section-heading-upper">Enjoy With</span>
+                                <span class="section-heading-lower">Our Selection</span>
+                                <!-- This is the place where restaurants will be displayed as cards -->
+                                <div id="cardList" class="card-list custom-card">
+                                    <% Restaurants.forEach(function(Restaurant) { %>
+                                        <article class="card">
+                                            <figure class="card-image">
+                                                <img src="data:image/jpeg;base64,<%= Buffer.from(Restaurant.Photo).toString('base64') %>"
+                                                    alt="Restaurant Photo" style="max-width: 400px; max-height: 400px;">
+                                            </figure>
+        
+                                            <div class="card-header">
+                                                <a href="#"><%= Restaurant.Restaurant_Name %></a>
+                                                <button class="icon-button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        display="block">
+                                                        <path
+                                                            d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <div class="card-footer">
+                                                <div class="card-meta card-meta--date">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        display="block" id="MapMarker">
+                                                        <path
+                                                            d="M12 2C7.48 2 4 6.48 4 11s8 13 8 13 8-7.48 8-13-3.48-9-8-9zM12 15c-1.11 0-2-0.89-2-2s0.89-2 2-2 2 0.89 2 2-0.89 2-2 2z" />
+                                                    </svg>
+                                                    <span class="small-text"><%= Restaurant.Address %></span>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    <% }); %>
+                                </div>
+                                <!-- Where it ends -->
+                            </h2>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        
 
 
 
