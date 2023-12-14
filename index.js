@@ -146,11 +146,12 @@ app.get("/displayRestaurant", (req, res) => {
     knex.select("Restaurant_Name", 
                 "Address", 
                 "Photo",
-                ).from("Restaurant")
+                "Item_Name")
+                .from("Restaurant")
                 .where("Restaurant_Name", req.query.searchRestaurantName)
                 .then(restaurant => {
                     res.render("displayData", { myRestaurant: restaurant });
-                }).catch(err => {
+                }).catch(err => { 
                     console.log(err);
                     res.status(500).json({ err });
                 });
