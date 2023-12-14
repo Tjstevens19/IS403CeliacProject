@@ -204,68 +204,6 @@ app.post('/addRestaurant', upload.single('restaurantPhoto'), (req, res) => {
         res.status(400).send('Bad Request: Missing or invalid file.');
     }
 });
-// app.get('/displayData', (req, res) => {
-//     knex.select("Survey_Responses.User_Id",
-//             "Timestamp",
-//             "Age",
-//             "Gender",
-//             "Location",
-//             "Relationship_Status",
-//             "Social_Media_User",
-//             "Occupation",
-//             "Avg_Social_Media_Hours_Daily",
-//             "Purposeless_Usage_Frequency",
-//             "Distracted_Use_Frequency",
-//             "Restless_Without_Social_Media_Level",
-//             "General_Distraction_Level",
-//             "General_Worry_Level",
-//             "General_Difficulty_Concentrating_Level",
-//             "Comparison_To_Others_Frequency",
-//             "Feeling_About_Comparison_Level",
-//             "Seeking_Validation_Frequency",
-//             "Depression_Frequency",
-//             "Interest_Fluctuation_Frequency",
-//             "Sleep_Issue_Frequency",
-//             "Comments",
-//             "Organization_Info.Organization_Num",
-//             "Organization_Info.Organization_Type" ,
-//              "User_Engagement_Info.Platform_Num",
-//              "Platform_Info.Platform_Name",
-//          knex.raw(`
-//          (
-//              SELECT STRING_AGG(DISTINCT "Platform_Info"."Platform_Name", ', ')
-//              FROM "User_Engagement_Info"
-//              JOIN "Platform_Info" ON "User_Engagement_Info"."Platform_Num" = "Platform_Info"."Platform_Num"
-//              WHERE "User_Engagement_Info"."User_Id" = "Survey_Responses"."User_Id"
-//              GROUP BY "User_Engagement_Info"."User_Id"
-//          ) AS "Platform_Names"
-//      `),
-//      // Organization Types subquery
-//      knex.raw(`
-//          (
-//              SELECT STRING_AGG(DISTINCT "Organization_Info"."Organization_Type", ', ')
-//              FROM "User_Engagement_Info"
-//              JOIN "Organization_Info" ON "User_Engagement_Info"."Organization_Num" = "Organization_Info"."Organization_Num"
-//              WHERE "User_Engagement_Info"."User_Id" = "Survey_Responses"."User_Id"
-//              GROUP BY "User_Engagement_Info"."User_Id"
-//          ) AS "Organization_Types"
-//          `)
-//     )
-//             .from('Survey_Responses')
-//             .join('User_Engagement_Info', 'Survey_Responses.User_Id', '=', 'User_Engagement_Info.User_Id')
-//             .join('Organization_Info', 'User_Engagement_Info.Organization_Num', '=', 'Organization_Info.Organization_Num')
-//             .join('Platform_Info', 'User_Engagement_Info.Platform_Num', '=', 'Platform_Info.Platform_Num')
-//             .orderBy('Survey_Responses.User_Id')
-//             .distinctOn('Survey_Responses.User_Id')
-//             .then(responses => {
-//                 // Render the 'displayData' view with the retrieved survey responses
-//                 res.render("displayData", { SurveyResponses: responses });
-//             })
-//             .catch(err => {
-//                 // Log and handle any errors that occur during data retrieval
-//                 console.log(err);
-//                 res.status(500).json({ err });
-//             });
-//     });
+
 // Start the Express app and listen on the specified port
 app.listen(port, () => console.log("The Express App has started and server is listening!"));
