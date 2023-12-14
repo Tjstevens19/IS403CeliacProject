@@ -1,29 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Edit Restaurant</title>
-    </head>
-    <body>
-        <form action="/updateRestaurant" method="POST" enctype="multipart/form-data">
-                <fieldset>
-                    <legend>Edit Restaurant:</legend>
-                    <label for="restaurantName">Restaurant Name:</label>
-                    <input type="text" id="restaurantName" name="restaurantName" value="<%= myRestaurant.Restaurant_Name %>">
-                
-                    <label for="address">Address:</label>
-                    <input type="text" id="address" name="address" value="<%= myRestaurant.Address %>">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Restaurant</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-                    <label for="restaurantPhoto">Restaurant Photo: </label>
-                    <input type="file" name="restaurantPhoto" />
-                
-                    <label for="itemName">Item Name:</label>
-                    <input type="text" id="itemName" name="itemName" value="<%= myRestaurant.Item_Name %>">
-                    <input type="hidden" name="restaurantId" value="<%= myRestaurant.Restaurant_Id %>">
-                    <button type="submit">Save Changes</button>
-                </fieldset>
-        </form>
-    </body>
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        legend {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #ff8c00; /* Change this color code to your desired orange color */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #e07b00; /* Change this color code to your desired hover color */
+        }
+    </style>
+</head>
+<body>
+    <form action="/updateRestaurant" method="POST" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Edit Restaurant:</legend>
+            <label for="restaurantName">Restaurant Name:</label>
+            <input type="text" id="restaurantName" name="restaurantName" value="<%= myRestaurant.Restaurant_Name %>">
+        
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" value="<%= myRestaurant.Address %>">
+
+            <label for="restaurantPhoto">Restaurant Photo: </label>
+            <input type="file" name="restaurantPhoto" />
+        
+            <label for="itemName">Item Name:</label>
+            <input type="text" id="itemName" name="itemName" value="<%= myRestaurant.Item_Name %>">
+            <input type="hidden" name="restaurantId" value="<%= myRestaurant.Restaurant_Id %>">
+            <button type="submit">Save Changes</button>
+        </fieldset>
+    </form>
+</body>
 </html>

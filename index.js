@@ -111,11 +111,11 @@ app.post('/login', (req, res) => {
                 // Dummy example: Check if the provided password matches the stored password
                 if (username === "admin" && password === "admin") {
                     // res.send('Login successful!');
-                    res.redirect("/displayRestaurants");
+                    res.redirect("/loggedInDisplayRestaurants");
                 }
                 else if (password === storedPassword) {
                     // res.send('Login successful!');
-                    res.redirect("/displayRestaurants");
+                    res.redirect("/loggedInDisplayRestaurants");
                 } else {
                     // Display an alert and redirect if login fails
                     res.send(`
@@ -180,6 +180,26 @@ app.get('/displayRestaurants', (req, res) => {
                             });
                     });
 
+// Handle display restaurants
+app.get('/loggedInDisplayRestaurants', (req, res) => {
+    knex
+        .select("Restaurant_Id",
+            "Restaurant_Name",
+            "Address",
+            "Photo",
+            "Item_Name")
+             .from("Restaurant")
+             .then(restaurants => {
+                                // Render the 'restaurantDisplay' view with the retrieved survey responses
+                                res.render("loggedInDisplayRestaurant", { Restaurants: restaurants });
+                            })
+                            .catch(err => {
+                                // Log and handle any errors that occur during data retrieval
+                                console.log(err);
+                                res.status(500).json({ err });
+                            });
+                    });
+
 // Handle update restaurant
 app.get("/editRestaurant/:id", (req, res) => {
     const restaurantId = req.params.id;
@@ -196,55 +216,46 @@ app.get("/editRestaurant/:id", (req, res) => {
         });
 });
 
-
-
-
-
-
 // Handle update restaurant
 app.post('/updateRestaurant', upload.single('restaurantPhoto'), (req, res) => {
     const { restaurantId, restaurantName, address, itemName } = req.body;
-    const restaurantPhoto = req.file ? req.file.buffer : undefined;
-    console.log('req.file:', req.file); // Log the contents of req.file
-    // Check if req.file is defined before accessing its properties
+
+// Check if req.file is defined before accessing its properties
+if (typeof restaurantId === 'undefined' || restaurantId === '') {
+    console.log('Invalid restaurantId:', restaurantId);
+    return res.status(400).send('Bad Request: Missing or invalid restaurantId.');
+}
+
+    // Determine if there's a new photo to update
+    const updateFields = {
+        Restaurant_Name: restaurantName,
+        Address: address,
+        Item_Name: itemName
+    };
+
     if (req.file && req.file.buffer) {
-        const restaurantPhoto = req.file.buffer;
-        knex("Restaurant")
-            .where({ Restaurant_Id: restaurantId })
-            .update({ Restaurant_Name: restaurantName, Address: address, Photo: restaurantPhoto, Item_Name: itemName })
-            .returning("*")
-            .then(updatedRestaurant => {
-                res.send(`
-                    <script>
-                        alert('Restaurant updated successfully!');
-                        window.location.href = '/displayRestaurants';
-                    </script>
-                `);
-            })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({ err });
-            });
-    } else {
-        // Handle the case where req.file or req.file.buffer is undefined
-        knex("Restaurant")
-            .where({ Restaurant_Id: restaurantId })
-            .update({ Restaurant_Name: restaurantName, Address: address, Item_Name: itemName })
-            .returning("*")
-            .then(updatedRestaurant => {
-                res.send(`
-                    <script>
-                        alert('Restaurant updated successfully!');
-                        window.location.href = '/displayRestaurants';
-                    </script>
-                `);
-            })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({ err });
-            });
+        updateFields.Photo = req.file.buffer;
     }
+
+    // Update the restaurant
+    knex("Restaurant")
+        .where({ Restaurant_Id: restaurantId })
+        .update(updateFields)
+        .returning("*")
+        .then(updatedRestaurant => {
+            res.send(`
+                <script>
+                    alert('Restaurant updated successfully!');
+                    window.location.href = '/loggedInDisplayRestaurants';
+                </script>
+            `);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ err });
+        });
 });
+
 
 
 app.post('/addRestaurant', upload.single('restaurantPhoto'), (req, res) => {
@@ -274,23 +285,19 @@ app.post('/addRestaurant', upload.single('restaurantPhoto'), (req, res) => {
     }
 });
 
-// Handle delete restaurant
-app.post('/deleteRestaurant/:id', (req, res) => {
-    const restaurantId = req.params.id;
+// Handle DELETE request for deleting a restaurant
+app.delete('/deleteRestaurant/:restaurantId', (req, res) => {
+    const restaurantId = req.params.restaurantId;
     knex("Restaurant")
         .where({ Restaurant_Id: restaurantId })
         .del()
         .then(() => {
-            res.send(`
-                <script>
-                    alert('Restaurant deleted successfully!');
-                    window.location.href = '/displayRestaurants';
-                </script>
-            `);
+            // Respond with JSON indicating success
+            res.json({ success: true, message: 'Restaurant deleted successfully' });
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ err });
+            res.status(500).json({ success: false, message: 'Failed to delete restaurant' });
         });
 });
 
