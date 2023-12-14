@@ -9,6 +9,53 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
         <link href="css/styles.css" rel="stylesheet">
         <title>Search Results</title>
+        <style>
+            .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .content-table th,
+        .content-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .active-row {
+            background-color: #f8f9fa;
+        }
+
+        .content-table th {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+        .content-table img {
+            max-width: 100px;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .content-table td {
+            vertical-align: middle;
+        }
+
+        .no-results {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+        }
+        </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -23,11 +70,11 @@
            </div>
        </nav><br><br><br>
        <div class="container text-center">
-        <form class="d-flex justify-content-center">
+        <form class="d-flex justify-content-center" action="/displayRestaurant" method="get">
             <div class="input-group">
-                <input id="restaurantName" class="form-control" type="search" placeholder="Search Celiac-Friendly Restaurants" aria-label="Search">
-                <div id="results" class="dropdown-menu" aria-labelledby="restaurantName"></div>
-                <button class="btn btn-primary" type="submit">Search</button>
+                <input id="searchRestaurantName" name="searchRestaurantName" class="form-control" type="search" placeholder="Search Celiac-Friendly Restaurants" aria-label="Search">
+                <div id="results" class="dropdown-menu" aria-labelledby="searchRestaurantName"></div>
+                  <button class="btn btn-primary" type="submit">Search</button>
             </div>
         </form>
     </div>
@@ -37,7 +84,7 @@
         <tr>
             <th style="text-align:left">Restaurant Name</th>
             <th style="text-align:left">Restaurant Address</th>
-            <th style="text-align:left">Photo</th>
+            <!-- <th style="text-align:left">Photo</th> -->
             <th style="text-align:left">Item Name</th>
         </tr>
     </thead>
@@ -47,12 +94,12 @@
             <tr class="active-row">
                 <td><%= myRestaurant[iCount].Restaurant_Name %></td>
                 <td><%= myRestaurant[iCount].Address %></td>
-                <td><%= myRestaurant[iCount].Photo ? '<img src="data:image/jpeg;base64,' + Buffer.from(myRestaurant[iCount].Photo).toString('base64') + '" alt="Restaurant Photo">' : '<p>No photo available</p>' %></td>
+                <!-- <td><%= myRestaurant[iCount].Photo ? '<img src="data:image/jpeg;base64,' + Buffer.from(myRestaurant[iCount].Photo).toString('base64') + '" alt="Restaurant Photo">' : 'No photo available' %></td> -->
                 <td><%= myRestaurant[iCount].Item_Name %></td>
             </tr>
         <% } %>
     <% } else { %>
-        <tr>
+        <tr class="active-row">
             <td colspan="4">No restaurants found</td>
         </tr>
     <% } %>
