@@ -49,9 +49,14 @@
                                     <% Restaurants.forEach(function(Restaurant) { %>
                                         <article class="card">
                                             <figure class="card-image">
-                                                <img src="data:image/jpeg;base64,<%= Buffer.from(Restaurant.Photo).toString('base64') %>"
-                                                    alt="Restaurant Photo" style="max-width: 400px; max-height: 400px;">
+                                                <% if (Restaurant.Photo) { %>
+                                                    <img src="data:image/jpeg;base64,<%= Buffer.from(Restaurant.Photo).toString('base64') %>"
+                                                        alt="Restaurant Photo" style="max-width: 400px; max-height: 400px;">
+                                                <% } else { %>
+                                                    <p>No photo available</p>
+                                                <% } %>
                                             </figure>
+                                            
         
                                             <div class="card-header">
                                                 <a href="#"><%= Restaurant.Restaurant_Name %></a>
