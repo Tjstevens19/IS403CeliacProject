@@ -46,7 +46,11 @@
                                 <span class="section-heading-lower">Our Selection</span>
                                 <!-- This is the place where restaurants will be displayed as cards -->
                                 <div id="cardList" class="card-list custom-card">
-                                    <% Restaurants.forEach(function(Restaurant) { %>
+                                    <% Restaurants.forEach(function(Restaurant, index) { %>
+                                        <% if (index % 2 === 0) { %>
+                                            <div class="card-row">
+                                        <% } %>
+                                
                                         <article class="card">
                                             <figure class="card-image">
                                                 <% if (Restaurant.Photo) { %>
@@ -56,13 +60,12 @@
                                                     <p>No photo available</p>
                                                 <% } %>
                                             </figure>
-                                            
+
                                             <div class="card-header">
                                                 <a href="#"><%= Restaurant.Restaurant_Name %></a>
                                                 <button class="icon-button">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                                         display="block">
                                                         <path
                                                             d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z" />
@@ -72,9 +75,8 @@
                                             
                                             <div class="card-footer">
                                                 <div class="card-meta card-meta--date">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                                         display="block" id="MapMarker">
                                                         <path
                                                             d="M12 2C7.48 2 4 6.48 4 11s8 13 8 13 8-7.48 8-13-3.48-9-8-9zM12 15c-1.11 0-2-0.89-2-2s0.89-2 2-2 2 0.89 2 2-0.89 2-2 2z" />
@@ -93,13 +95,13 @@
                                                 </div>
                                             </div>
                                         </article>
+                                
+                                        <% if (index % 2 !== 0 || index === Restaurants.length - 1) { %>
+                                            </div>
+                                        <% } %>
                                     <% }); %>
                                 </div>
-                                
-                                
-                                
-                                
-                                <!-- Where it ends -->
+
                             </h2>
                         </div>
                     </div>
