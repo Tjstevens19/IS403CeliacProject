@@ -13,7 +13,7 @@
             <li>
                 <h2><%= Restaurant.Restaurant_Name %></h2>
                 <p>Address: <%= Restaurant.Address %></p>
-                <p>Menu Item: <%= Restaurant.Menu_Item %></p>
+                <p>Item_Name: <%= Restaurant.Item_Name %></p>
                 <% if (Restaurant.Photo) { %>
                     <img src="data:image/jpeg;base64,<%= Buffer.from(Restaurant.Photo).toString('base64') %>" alt="Restaurant Photo">
                 <% } else { %>

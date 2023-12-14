@@ -38,17 +38,28 @@
             <th style="text-align:left">Restaurant Name</th>
             <th style="text-align:left">Restaurant Address</th>
             <th style="text-align:left">Photo</th>
+            <th style="text-align:left">Item Name</th>
         </tr>
     </thead>
-    <tbody>
-        <% for (let iCount = 0; iCount < myRestaurant.length; iCount++){ %>
+   <tbody>
+    <% if (myRestaurant && myRestaurant.length > 0) { %>
+        <% for (let iCount = 0; iCount < myRestaurant.length; iCount++) { %>
             <tr class="active-row">
                 <td><%= myRestaurant[iCount].Restaurant_Name %></td>
                 <td><%= myRestaurant[iCount].Address %></td>
-                <td><%= myRestaurant[iCount].Photo ? '<img src="data:image/jpeg;base64,' + Buffer.from(myRestaurant.Photo).toString('base64') + '" alt="Restaurant Photo">' : '<p>No photo available</p>' %></td>
+                <td><%= myRestaurant[iCount].Photo ? '<img src="data:image/jpeg;base64,' + Buffer.from(myRestaurant[iCount].Photo).toString('base64') + '" alt="Restaurant Photo">' : '<p>No photo available</p>' %></td>
+                <td><%= myRestaurant[iCount].Item_Name %></td>
             </tr>
         <% } %>
-    </tbody>
+    <% } else { %>
+        <tr>
+            <td colspan="4">No restaurants found</td>
+        </tr>
+    <% } %>
+</tbody>
+
+    
 </table>
+
 </body>
 </html>
