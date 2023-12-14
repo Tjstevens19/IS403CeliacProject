@@ -84,7 +84,6 @@
         <tr>
             <th style="text-align:left">Restaurant Name</th>
             <th style="text-align:left">Restaurant Address</th>
-            <!-- <th style="text-align:left">Photo</th> -->
             <th style="text-align:left">Item Name</th>
         </tr>
     </thead>
@@ -94,7 +93,6 @@
             <tr class="active-row">
                 <td><%= myRestaurant[iCount].Restaurant_Name %></td>
                 <td><%= myRestaurant[iCount].Address %></td>
-                <!-- <td><%= myRestaurant[iCount].Photo ? '<img src="data:image/jpeg;base64,' + Buffer.from(myRestaurant[iCount].Photo).toString('base64') + '" alt="Restaurant Photo">' : 'No photo available' %></td> -->
                 <td><%= myRestaurant[iCount].Item_Name %></td>
             </tr>
         <% } %>
