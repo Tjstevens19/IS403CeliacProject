@@ -57,7 +57,6 @@
                                                 <% } %>
                                             </figure>
                                             
-        
                                             <div class="card-header">
                                                 <a href="#"><%= Restaurant.Restaurant_Name %></a>
                                                 <button class="icon-button">
@@ -70,6 +69,7 @@
                                                     </svg>
                                                 </button>
                                             </div>
+                                            
                                             <div class="card-footer">
                                                 <div class="card-meta card-meta--date">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -82,9 +82,23 @@
                                                     <span class="small-text"><%= Restaurant.Address %></span>
                                                 </div>
                                             </div>
+                                                <!-- Line break -->
+                                                <div style="display: block; height: 10px;"></div>
+                                            <div>  
+                                
+                                                <!-- Additional information -->
+                                                <div class="card-meta card-meta--item">
+                                                    
+                                                    <span class="small-text">Item: <%= Restaurant.Item_Name %></span>
+                                                </div>
+                                            </div>
                                         </article>
                                     <% }); %>
                                 </div>
+                                
+                                
+                                
+                                
                                 <!-- Where it ends -->
                             </h2>
                         </div>
